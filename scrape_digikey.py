@@ -6,8 +6,9 @@ from selenium.webdriver.common.by import By
 
 
 # TODO: scrape many pages at the same time.
+# TODO: use docker containers with driver and delete driver
 def find_part_infos(url):
-    driver = webdriver.Chrome(executable_path=r"/Users/robertocalvi/Documents/DataScience/chromedriver")
+    driver = webdriver.Chrome()
     driver.get(url)
 
     delay = 3
