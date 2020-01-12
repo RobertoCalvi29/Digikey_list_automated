@@ -1,5 +1,6 @@
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
+from selenium.webdriver import DesiredCapabilities
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.common.by import By
@@ -8,7 +9,7 @@ from selenium.webdriver.common.by import By
 # TODO: scrape many pages at the same time.
 # TODO: use docker containers with driver and delete driver
 def find_part_infos(url):
-    driver = webdriver.Chrome()
+    driver = webdriver.Remote("http://127.0.0.1:4444/wd/hub", DesiredCapabilities.CHROME)
     driver.get(url)
 
     delay = 3
@@ -20,8 +21,8 @@ def find_part_infos(url):
         print("Loading took too much time")
 
     name = driver.find_element_by_tag_name("h1").text
-    unit = driver.find_element_by_xpath(("//table[@class='product-dollars']/tbody/tr[2]/td")).text
-    price = driver.find_element_by_xpath(("//table[@class='product-dollars']/tbody/tr[2]/td[3]")).text
+    unit = driver.find_element_by_xpath("//table[@class='product-dollars']/tbody/tr[2]/td").text
+    price = driver.find_element_by_xpath("//table[@class='product-dollars']/tbody/tr[2]/td[3]").text
     description = driver.find_element_by_xpath("//td[@itemprop='description']").text
     digikey_part_number = driver.find_element_by_id("reportPartNumber").text
 
